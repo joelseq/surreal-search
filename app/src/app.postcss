@@ -1,0 +1,24 @@
+/* Write your global styles here, in PostCSS syntax */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  @apply h-full overflow-hidden;
+}
+
+mark {
+  @apply bg-warning-500;
+}
+
+:root [data-theme='skeleton'] {
+  --theme-rounded-container: theme(borderRadius.md);
+  --theme-rounded-base: theme(borderRadius.sm);
+  --theme-font-family-base: Roboto, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --theme-font-family-heading: Roboto, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
