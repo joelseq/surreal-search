@@ -1,7 +1,9 @@
 package cmd
 
 import (
+	"fmt"
 	"log"
+	"os"
 
 	"github.com/joelseq/surreal-search/api/types"
 	"github.com/joelseq/surreal-search/internal/crawler"
@@ -25,8 +27,8 @@ var indexCmd = &cobra.Command{
 	Long:  `This command will (re-)build the index of the SurrealDB docs site in Typesense`,
 	Run: func(cmd *cobra.Command, args []string) {
 		client := typesense.NewClient(
-			typesense.WithServer("http://localhost:8108"),
-			typesense.WithAPIKey("xyz"),
+			typesense.WithServer(os.Getenv("TYPESENSE_API_ENDPOINT")),
+			typesense.WithAPIKey(os.Getenv("TYPESENSE_API_KEY")),
 		)
 		createSchema(client)
 		v := visitor.NewVisitor(client)
@@ -39,7 +41,23 @@ var indexCmd = &cobra.Command{
 }
 
 func createSchema(c *typesense.Client) {
-	_, err := c.Collections().Create(types.Schema)
+	collections, err := c.Collections().Retrieve()
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+	if len(collections) > 0 {
+		fmt.Println("Deleting existing collection...")
+
+		_, err = c.Collection("pages").Delete()
+
+		if err != nil {
+			log.Fatalln(err)
+		}
+	}
+
+	fmt.Println("Creating schema...")
+	_, err = c.Collections().Create(types.Schema)
 
 	if err != nil {
 		log.Fatalln(err)

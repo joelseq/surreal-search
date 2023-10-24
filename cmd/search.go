@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/joelseq/surreal-search/internal/searcher"
 	"github.com/spf13/cobra"
@@ -21,8 +22,8 @@ var searchCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Printf("Searched for %s\n", args[0])
 		client := typesense.NewClient(
-			typesense.WithServer("http://localhost:8108"),
-			typesense.WithAPIKey("xyz"),
+			typesense.WithServer(os.Getenv("TYPESENSE_API_ENDPOINT")),
+			typesense.WithAPIKey(os.Getenv("TYPESENSE_API_KEY")),
 		)
 		searcher := searcher.NewSearcher(client)
 		results, err := searcher.Search(args[0])

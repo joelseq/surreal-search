@@ -24,3 +24,6 @@ go.work
 
 # Typesense data
 typesense/typesense-data
+
+# Env file
+.env

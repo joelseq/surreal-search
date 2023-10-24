@@ -4,6 +4,7 @@ go 1.21.0
 
 require (
 	github.com/PuerkitoBio/goquery v1.8.1
+	github.com/joho/godotenv v1.5.1
 	github.com/labstack/echo/v4 v4.11.2
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/spf13/cobra v1.7.0
@@ -32,6 +33,7 @@ require (
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.14.0 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
+	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/gomarkdown/markdown v0.0.0-20230716120725-531d2d74bc12 // indirect
 	github.com/google/uuid v1.3.1 // indirect

@@ -3,10 +3,12 @@ package server
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/joelseq/surreal-search/api/types"
 	"github.com/joelseq/surreal-search/internal/searcher"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"github.com/typesense/typesense-go/typesense"
 )
 
@@ -22,6 +24,10 @@ func NewServer(port uint) *Server {
 
 func (s *Server) Serve() {
 	e := echo.New()
+
+	e.Use(middleware.CORS())
+	e.Use(middleware.Logger())
+
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Surreal Search API")
 	})
@@ -34,8 +40,8 @@ func searchHandler(c echo.Context) error {
 	search := c.QueryParam("q")
 
 	client := typesense.NewClient(
-		typesense.WithServer("http://localhost:8108"),
-		typesense.WithAPIKey("xyz"),
+		typesense.WithServer(os.Getenv("TYPESENSE_API_ENDPOINT")),
+		typesense.WithAPIKey(os.Getenv("TYPESENSE_API_KEY")),
 	)
 	searcher := searcher.NewSearcher(client)
 	results, err := searcher.Search(search)
