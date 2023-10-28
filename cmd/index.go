@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	"github.com/joelseq/surreal-search/api/types"
 	"github.com/joelseq/surreal-search/internal/crawler"
@@ -29,6 +30,7 @@ var indexCmd = &cobra.Command{
 		client := typesense.NewClient(
 			typesense.WithServer(os.Getenv("TYPESENSE_API_ENDPOINT")),
 			typesense.WithAPIKey(os.Getenv("TYPESENSE_API_KEY")),
+			typesense.WithConnectionTimeout(15*time.Second),
 		)
 		createSchema(client)
 		v := visitor.NewVisitor(client)
