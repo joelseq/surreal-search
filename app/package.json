@@ -40,6 +40,10 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"lodash": "^4.17.21"
+		"@fortawesome/free-brands-svg-icons": "^6.4.2",
+		"@fortawesome/free-solid-svg-icons": "^6.4.2",
+		"@vercel/analytics": "^1.1.1",
+		"lodash": "^4.17.21",
+		"svelte-fa": "^3.0.4"
 	}
 }
